@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pyedictor',
-    version='0.1.1.dev0',
+    version='0.1.0',
     license='Apache 2.0',
     description='fetch functionalities for EDICTOR',
     long_description=open('README.md').read(),
@@ -27,12 +27,12 @@ setup(
     platforms='any',
     python_requires='>=3.6',
     install_requires=[
+        "lingpy"
     ],
     extras_require={
         'dev': ['flake8', 'wheel', 'twine'],
         'test': [
             'pytest>=4.3',
-            'pytest-mock',
             'pytest-cov',
             'coverage>=4.2',
         ],
