@@ -21,7 +21,7 @@ def fetch(
     if concepts:
         url += "&concepts=" + "|".join([urllib.parse.quote(c) for c in concepts])
     if languages:
-        url += "&languages=" + "|".join([urllib.parse.quote(c) for c in languages])
+        url += "&doculects=" + "|".join([urllib.parse.quote(c) for c in languages])
     if columns:
         url += "&columns=" + "|".join(columns)
 
