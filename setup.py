@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pyedictor',
-    version='0.3',
+    version='0.4.dev0',
     license='Apache 2.0',
     description='fetch functionalities for EDICTOR',
     long_description=open('README.md').read(),
