@@ -23,11 +23,12 @@ setup(
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
     include_package_data=True,
+    entry_points={"console_scripts": ["edictor=pyedictor.cli:main"]},
     zip_safe=False,
     platforms='any',
     python_requires='>=3.6',
     install_requires=[
-        "lingpy"
+        "lingpy", "lexibase", 
     ],
     extras_require={
         'dev': ['flake8', 'wheel', 'twine'],
@@ -36,8 +37,6 @@ setup(
             'pytest-cov',
             'coverage>=4.2',
         ],
-    },
-    entry_points={
     },
 )
 
