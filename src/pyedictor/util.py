@@ -32,3 +32,15 @@ def fetch(
             tf.flush()
             return transform(tf.name) if transform else lingpy.Wordlist(tf.name)
     return data.decode("utf-8")
+
+
+def iter_etymdict(wordlist, ref, *values):
+    for cogid, idxs_ in wordlist.get_etymdict(ref).items():
+        idxs = []
+        for idx in idxs_:
+            if idx:
+                idxs += idx
+        if not values:
+            yield cogid, idxs
+        yield cogid, [idxs]+[
+                [wordlist[idx, val] for idx in idxs] for val in values]
