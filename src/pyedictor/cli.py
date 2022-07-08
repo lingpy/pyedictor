@@ -114,6 +114,12 @@ class wordlist(Command):
                 False,
                 "convert to SQLITE format"
                 )
+        add_option(
+                p,
+                "custom",
+                None,
+                "custom field where arguments can be passed in JSON form"
+                )
 
     def __call__(self, args):
         namespace = json.loads(args.namespace)
@@ -132,13 +138,18 @@ class wordlist(Command):
             preprocessing = prep.run
         else:
             preprocessing = None
+        if args.custom:
+            custom_args = json.loads(args.custom)
+        else:
+            custom_args = None
         get_lexibase(
                 args.dataset,
                 args.name,
                 columns=columns,
                 namespace=namespace,
                 preprocessing=preprocessing, 
-                lexibase=args.sqlite)
+                lexibase=args.sqlite,
+                custom_args=custom_args)
 
             
 def get_parser():

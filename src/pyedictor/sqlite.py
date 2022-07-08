@@ -7,7 +7,7 @@ from lingpy import Wordlist
 
 def get_lexibase(
         path, name, columns=None, preprocessing=None, namespace=None,
-        lexibase=False):
+        lexibase=False, custom_args=None):
 
     wordlist = Wordlist.from_cldf(
             path,
@@ -27,7 +27,9 @@ def get_lexibase(
                 ("comment", "note")
                 ]))
 
-    if preprocessing:
+    if preprocessing and custom_args:
+        D = preprocessing(wordlist, args=custom_args)
+    elif preprocessing:
         D = preprocessing(wordlist)
     else:
         D = {idx: wordlist[idx] for idx in wordlist}
