@@ -7,6 +7,8 @@ import argparse
 from pyedictor.sqlite import get_lexibase
 import json
 from pathlib import Path
+from tabulate import tabulate
+
 
 class CommandMeta(type):
     """
@@ -151,7 +153,70 @@ class wordlist(Command):
                 lexibase=args.sqlite,
                 custom_args=custom_args)
 
-            
+
+class coverage(Command):
+    """
+    Convert a dataset to EDICTOR's sqlite format.
+    """
+
+    @classmethod
+    def subparser(cls, p):
+        add_option(
+                p,
+                "dataset",
+                Path("cldf", "cldf-metadata.json"),
+                "Path to the CLDF metadata file.",
+                short_opt="d"
+                )
+        add_option(
+                p,
+                "namespace",
+                '{"language_id": "doculect", "concept_name": "concept",'
+                '"value": "value", "form": "form", "segments": "tokens",'
+                '"comment": "note"}',
+                "namespace and columns you want to extract"
+                )
+        add_option(
+                p,
+                "addon",
+                None,
+                "expand the namespace",
+                short_opt="a")
+
+    def __call__(self, args):
+        namespace = json.loads(args.namespace)
+        if args.addon:
+            for row in args.addon.split(','):
+                s, t = row.split(':')
+                namespace[s] = t
+        columns = [x for x in list(namespace)]
+        wordlist = lingpy.Wordlist.from_cldf(
+                args.dataset,
+                columns=columns or (
+                    "language_id",
+                    "concept_name",
+                    "value",
+                    "form",
+                    "segments",
+                    "comment"),
+                namespace=namespace or dict([
+                    ("language_id", "doculect"),
+                    ("concept_name", "concept"),
+                    ("value", "value"),
+                    ("form", "form"),
+                    ("segments", "tokens"),
+                    ("comment", "note")
+                    ]))
+        print(tabulate(
+            sorted(
+                wordlist.coverage().items(),
+                key=lambda x: x[1],
+                reverse=True),
+            headers=["Language", "Concepts"],
+            ))
+
+
+
 def get_parser():
     # basic parser for lingpy
     parser = argparse.ArgumentParser(
