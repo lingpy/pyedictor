@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pyedictor',
-    version='0.5.dev0',
+    version='0.5',
     license='Apache 2.0',
     description='fetch functionalities for EDICTOR',
     long_description=open('README.md').read(),
@@ -11,8 +11,6 @@ setup(
     classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
     ],
@@ -26,7 +24,7 @@ setup(
     entry_points={"console_scripts": ["edictor=pyedictor.cli:main"]},
     zip_safe=False,
     platforms='any',
-    python_requires='>=3.6',
+    python_requires='>=3.8',
     install_requires=[
         "lingpy", "lexibase", 
     ],
