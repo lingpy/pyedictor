@@ -19,7 +19,7 @@ def fetch(
     if not remote_dbase:
         url += "&remote_dbase=" + dataset + ".sqlite3"
     else:
-        url += "&remote_dbase=" + remote_dbase
+        url += "&remote_dbase=" + remote_dbase 
     if concepts:
         url += "&concepts=" + "|".join([urllib.parse.quote(c) for c in concepts])
     if languages:
