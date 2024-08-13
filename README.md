@@ -1,15 +1,20 @@
 # PyEDICTOR: Simple Access to EDICTOR Databases
 
+**+++ PyEDICTOR is deprecated and superseded by the [`edictor`](https://github.com/digling/edictor) package.+++**
+
+
+
+
 ## Installation:
 
 ```
-$ pip install pyedictor
+$ pip install edictor[lingpy]
 ```
 
 ## Usage
 
 ```python
->>> from pyedictor import fetch
+>>> from edictor.wordlist import fetch_wordlist as fetch
 >>> wl = fetch("deepadungpalaung", to_lingpy=True)
 >>> print(wl.width)
 16
@@ -19,7 +24,7 @@ To load as a LexStat wordlist:
 
 ```python
 >>> from lingpy import *
->>> from pyedictor import fetch
+>>> from edictor.wordlist import fetch_wordlist as fetch
 >>> lex = fetch("deepadungpalaung", to_lingpy=True, transform=LexStat)
 ```
 
